@@ -10,7 +10,7 @@ use overload 'bool' => sub { 1 };
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.05';
+	$VERSION = '0.06';
 }
 
 # Create the data store for the Nodes
@@ -48,6 +48,21 @@ sub __set {
 	}
 
 	1;
+}
+
+# Methods compatible with UNIVERSAL will die in a major way.
+# Fortunately, we can tell if 'isa' and 'can' calls are meant to be genuine
+# or not. The two-argument form is passed though, the one-argument form
+# is treated by descending.
+sub isa {
+	my $self = shift;
+	return $self->SUPER::isa(@_) if @_;
+	exists $self->{isa} ? $self->{isa} : undef;
+}
+sub can {
+	my $self = shift;
+	return $self->SUPER::can(@_) if @_;
+	exists $self->{can} ? $self->{can} : undef;
 }
 
 # Unfortunately, we have no choice but to use this name.

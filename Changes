@@ -1,10 +1,14 @@
 Revision history for Perl extension Template::Plugin::StringTree;
 
-0.05 Thu Jul  6 2004
+0.06 Wed Jul  7 2004
+	- Intercept the one-argument forms of critical UNIVERSAL methods
+	  and dispatch like normal hash walkers.
+
+0.05 Tue Jul  6 2004
 	- Changed ->variables to a more normal ->hash name
 	- Added a test for it
 
-0.04 Thu Jul  6 2004
+0.04 Tue Jul  6 2004
 	- Added the ->clone method
 
 0.03 Tue Jul  6 2004

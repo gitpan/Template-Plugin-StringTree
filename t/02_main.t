@@ -20,7 +20,7 @@ BEGIN {
 
 
 # Does everything load?
-use Test::More 'tests' => 33;
+use Test::More 'tests' => 41;
 use Template::Plugin::StringTree ();
 
 
@@ -90,5 +90,19 @@ is( $Object->freeze, $Cloned->freeze, "Cloning works" );
 # Test ->hash
 my $hash = $Object->hash;
 ok( (ref $hash eq 'HASH'), "->hash produces a normal hash, not an object" );
+
+# Test stringification
+my $node = $Tree->{a}->{b}->{c};
+isa_ok( $node, "${TPS}::Node" );
+is( "$node", "foo", "Node stringification works fine" );
+
+# Check the for can and isa bugs
+my $Test = $TPS->new;
+ok( $Test->set('foo.can.dance', 'foo'), "Setting up can check" );
+ok( ref $Test->{foo}->can eq "${TPS}::Node", "One-argument form of can is caught correctly" );
+ok( $Test->{foo}->can('__get'), "Two-argument form of can is caught correctly" );
+ok( $Test->set('foo.isa.dancer', 'dance!'), "Setting up isa check" );
+ok( ref $Test->{foo}->isa eq "${TPS}::Node", "One-argument form of can is caught correctly" );
+ok( $Test->{foo}->isa('UNIVERSAL'), "Two-argument form of isa is caught correctly" );
 
 1;
