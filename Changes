@@ -1,4 +1,10 @@
 Revision history for Perl extension Template::Plugin::StringTree;
 
+0.03 Tue Jul  6 2004
+	- More complete testing caught some bugs in freeze
+
+0.02 Tue Jul  6 2004
+	- Added the 'add' and 'equal' methods
+
 0.01 Mon Jul  5 2004
 	- Created the initial version of the file

@@ -53,7 +53,7 @@ use Clone ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.02';
+	$VERSION = '0.03';
 }
 
 
@@ -251,22 +251,22 @@ sub freeze {
 
 	# Flatten and escape the tree
 	my %flat = ();
-	my @queue = ( [ '', $$self ] );
+	my @queue = ( [ '', $self ] );
 	while ( my $item = shift @queue ) {
 		my $base   = $item->[0];
 		my $cursor = $item->[1];
 
 		foreach my $key ( keys %$cursor ) {
-			my $path = length $base ? "$base.$_" : $_;
+			my $path = length $base ? "$base.$key" : $key;
 			my $value = (ref $cursor->{$key})
 				? $cursor->{$key}->__get
 				: $cursor->{$key};
 			if ( defined $value ) {
 				# Escape and add the value to the output
 				$value =~ s/([\\\n])/sprintf('\\%03d', ord($1))/ge;
-				$flat{$key} = $value;
+				$flat{$path} = $value;
 			}
-			push @queue, [ $key, $cursor->{$key} ];
+			push @queue, [ $path, $cursor->{$key} ] if ref $cursor->{$key};
 		}
 	}
 
