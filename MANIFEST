@@ -1,0 +1,9 @@
+Changes
+lib/Template/Plugin/StringTree.pm
+lib/Template/Plugin/StringTree/Node.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+README
+t/01_compile.t
+META.yml                                Module meta-data (added by MakeMaker)
