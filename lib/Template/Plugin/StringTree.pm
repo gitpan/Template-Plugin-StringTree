@@ -52,7 +52,7 @@ use Template::Plugin::StringTree::Node;
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.06';
+	$VERSION = '0.07';
 }
 
 

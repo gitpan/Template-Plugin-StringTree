@@ -6,11 +6,10 @@ package Template::Plugin::StringTree::Node;
 use strict;
 use Scalar::Util ();
 use overload '""'   => '__get';
-use overload 'bool' => sub { 1 };
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.06';
+	$VERSION = '0.07';
 }
 
 # Create the data store for the Nodes

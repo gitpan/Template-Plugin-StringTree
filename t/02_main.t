@@ -20,7 +20,7 @@ BEGIN {
 
 
 # Does everything load?
-use Test::More 'tests' => 41;
+use Test::More 'tests' => 45;
 use Template::Plugin::StringTree ();
 
 
@@ -96,7 +96,7 @@ my $node = $Tree->{a}->{b}->{c};
 isa_ok( $node, "${TPS}::Node" );
 is( "$node", "foo", "Node stringification works fine" );
 
-# Check the for can and isa bugs
+# Check the 'can' and 'isa' bugs
 my $Test = $TPS->new;
 ok( $Test->set('foo.can.dance', 'foo'), "Setting up can check" );
 ok( ref $Test->{foo}->can eq "${TPS}::Node", "One-argument form of can is caught correctly" );
@@ -104,5 +104,16 @@ ok( $Test->{foo}->can('__get'), "Two-argument form of can is caught correctly" )
 ok( $Test->set('foo.isa.dancer', 'dance!'), "Setting up isa check" );
 ok( ref $Test->{foo}->isa eq "${TPS}::Node", "One-argument form of can is caught correctly" );
 ok( $Test->{foo}->isa('UNIVERSAL'), "Two-argument form of isa is caught correctly" );
+
+# Check boolean casting
+my $Cast = $TPS->new;
+ok( $Cast->set('build.modperl', 0), "Setting up bool check" );
+ok( $Cast->set('build.modperl.only', 0), "Setting up bool check" );
+isa_ok( $Cast->hash->{build}->{modperl}, "${TPS}::Node", "Setting up bool check" );
+if ( $Cast->hash->{build}->{modperl} ) {
+	ok( '', "Checking bool case" );
+} else {
+	ok( 1, "Check bool case" );
+}
 
 1;
