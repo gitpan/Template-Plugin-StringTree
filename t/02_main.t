@@ -20,7 +20,7 @@ BEGIN {
 
 
 # Does everything load?
-use Test::More 'tests' => 31;
+use Test::More 'tests' => 32;
 use Template::Plugin::StringTree ();
 
 
@@ -82,5 +82,9 @@ ok ( $Tree->equal('foo.a', 'b'),     "Equal returns expected value" );
 ok ( $Tree->equal('foo.b', undef),   "Equal returns expected value" );
 ok ( ! $Tree->equal('foo', undef),   "Equal returns expected value" );
 ok ( ! $Tree->equal('foo.b', 'foo'), "Equal returns expected value" );
+
+# Test ->clone
+my $Cloned = $Object->clone;
+is( $Object->freeze, $Cloned->freeze, "Cloning works" );
 
 1;

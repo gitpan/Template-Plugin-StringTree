@@ -10,7 +10,7 @@ use overload 'bool' => sub { 1 };
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.03';
+	$VERSION = '0.04';
 }
 
 # Create the data store for the Nodes

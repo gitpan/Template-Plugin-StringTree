@@ -6,7 +6,6 @@ WriteMakefile(
 	'PREREQ_PM'    => {
 		# Application dependencies
 		File::Spec    => '0.82',
-		Clone         => '0.14',
 		List::Util    => '1.11',
 
 		# Test dependencies

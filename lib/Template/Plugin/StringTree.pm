@@ -49,11 +49,10 @@ every node can have a value. And you can get at these naturally in templates.
 use strict;
 use UNIVERSAL 'isa';
 use Template::Plugin::StringTree::Node;
-use Clone ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.03';
+	$VERSION = '0.04';
 }
 
 
@@ -74,6 +73,11 @@ returns it.
 
 sub new {
 	bless {}, ref($_[0]) || $_[0];
+}
+
+sub clone {
+	my $self = ref $_[0] ? shift : return undef;
+	ref($self)->thaw( $self->freeze );
 }
 
 
