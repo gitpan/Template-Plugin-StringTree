@@ -20,7 +20,7 @@ BEGIN {
 
 
 # Does everything load?
-use Test::More 'tests' => 14;
+use Test::More 'tests' => 24;
 BEGIN {
 	ok( $] >= 5.005, 'Your perl is new enough' );
 }
@@ -52,5 +52,17 @@ is( $Tree->get('foo.a'), 'b', "More complex get returns the set value" );
 # Long
 ok( $Tree->set('a.b.c.d.e.f.g', "foo"), "Long set returns true" );
 is( $Tree->get('a.b.c.d.e.f.g'), "foo", "Long get returns the set value" );
+is( $Tree->get('a')            , undef, "Unoccupied node returns undef" );
+is( $Tree->get('a.b')          , undef, "Unoccupied node returns undef" );
+is( $Tree->get('a.b.c')        , undef, "Unoccupied node returns undef" );
+is( $Tree->get('a.b.c.d')      , undef, "Unoccupied node returns undef" );
+is( $Tree->get('a.b.c.d.e')    , undef, "Unoccupied node returns undef" );
+is( $Tree->get('a.b.c.d.e.f')  , undef, "Unoccupied node returns undef" );
+
+# Check ->add
+ok( $Tree->add('a.b.c', 'foo'), "Added a value to an unset node" );
+is( $Tree->get('a.b.c'), 'foo', "Got added value back the same" );
+ok( ! $Tree->add('foo.a', 'c'), "Failed to add a value to an already set node" );
+is( $Tree->get('foo.a'), 'b', "Failed added value remains unchanged" );
 
 1;

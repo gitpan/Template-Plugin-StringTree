@@ -57,6 +57,13 @@ METHODS
 
     Returns true if the value is set correctly, or "undef" on error.
 
+    The "add" method is nearly identical to the normal "set" method, except
+    that the it expects there NOT to be an existing value in place. Rather
+    than overwrite an existing value, this method will return an error.
+
+    Returns true if there is no existing value, and it is successfully set,
+    or "undef" if there is an existing value, or an error while setting.
+
   variables
     The "variables" method produces a flat hash equivalent to the
     Template::Plugin::StringTree object, which can be passed to the template

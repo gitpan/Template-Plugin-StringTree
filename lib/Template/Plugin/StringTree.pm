@@ -53,7 +53,7 @@ use Clone ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.01';
+	$VERSION = '0.02';
 }
 
 
@@ -154,6 +154,57 @@ sub set {
 
 	1;
 }
+
+=pod
+
+The C<add> method is nearly identical to the normal C<set> method,
+except that the it expects there B<NOT> to be an existing value in place.
+Rather than overwrite an existing value, this method will return an error.
+
+Returns true if there is no existing value, and it is successfully set,
+or C<undef> if there is an existing value, or an error while setting.
+
+=cut
+
+sub add {
+	my $self  = shift;
+	my $path  = $self->_path(shift) or return undef;
+	my $value = shift;
+
+	# Walk the tree to determine the location to set
+	my $cursor = $self;
+	my $leaf = pop @$path;
+	foreach my $branch ( @$path ) {
+		if ( ! defined $cursor->{$branch} ) {
+			# Create a new node for the branch
+			$cursor->{$branch} = Template::Plugin::StringTree::Node->__new;
+		} elsif ( ! ref $cursor->{$branch} ) {
+			# Convert the existing leaf into a node
+			$cursor->{$branch} = Template::Plugin::StringTree::Node->__new( $cursor->{$branch} );
+		}
+
+		# Move down into the node
+		$cursor = $cursor->{$branch};		
+	}
+
+	# Now set the leaf
+	if ( exists $cursor->{$leaf} and ref $cursor->{$leaf} ) {
+		# Fail if there is an existing value
+		return undef if defined $cursor->{$leaf}->__get($value);
+
+		# Replace the node's value
+		$cursor->{$leaf}->__set($value);
+	} else {
+		# Fail if there is an existing value
+		return undef if defined $cursor->{$leaf};
+
+		# Create or replace a leaf
+		$cursor->{$leaf} = $value;
+	}
+
+	1;
+}
+
 
 =pod
 
