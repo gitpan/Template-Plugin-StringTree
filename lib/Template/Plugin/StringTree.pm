@@ -52,7 +52,7 @@ use Template::Plugin::StringTree::Node;
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.04';
+	$VERSION = '0.05';
 }
 
 
@@ -212,9 +212,9 @@ sub add {
 
 =pod
 
-=head2 variables
+=head2 hash
 
-The C<variables> method produces a flat hash equivalent to the
+The C<hash> method produces a flat hash equivalent to the
 Template::Plugin::StringTree object, which can be passed to the template
 parser. You can manually add additional elements to the hash after it has
 been produced, but you should not attempt to add anything to a hash key
@@ -225,7 +225,7 @@ Returns a reference to a HASH containing the tree of strings.
 
 =cut
 
-sub variables { \%{$_[0]} }
+sub hash { my $hash = { %{$_[0]} }; $hash }
 
 =pod
 

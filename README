@@ -64,8 +64,8 @@ METHODS
     Returns true if there is no existing value, and it is successfully set,
     or "undef" if there is an existing value, or an error while setting.
 
-  variables
-    The "variables" method produces a flat hash equivalent to the
+  hash
+    The "hash" method produces a flat hash equivalent to the
     Template::Plugin::StringTree object, which can be passed to the template
     parser. You can manually add additional elements to the hash after it
     has been produced, but you should not attempt to add anything to a hash

@@ -20,7 +20,7 @@ BEGIN {
 
 
 # Does everything load?
-use Test::More 'tests' => 32;
+use Test::More 'tests' => 33;
 use Template::Plugin::StringTree ();
 
 
@@ -86,5 +86,9 @@ ok ( ! $Tree->equal('foo.b', 'foo'), "Equal returns expected value" );
 # Test ->clone
 my $Cloned = $Object->clone;
 is( $Object->freeze, $Cloned->freeze, "Cloning works" );
+
+# Test ->hash
+my $hash = $Object->hash;
+ok( (ref $hash eq 'HASH'), "->hash produces a normal hash, not an object" );
 
 1;

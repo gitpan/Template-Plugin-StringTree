@@ -1,5 +1,9 @@
 Revision history for Perl extension Template::Plugin::StringTree;
 
+0.05 Thu Jul  6 2004
+	- Changed ->variables to a more normal ->hash name
+	- Added a test for it
+
 0.04 Thu Jul  6 2004
 	- Added the ->clone method
 
